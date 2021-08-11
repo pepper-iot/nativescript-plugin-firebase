@@ -221,7 +221,7 @@ export function registerForInteractivePush(model?: PushNotificationModel): void 
             action.title,
             notificationActionOptions);
         } else {
-          console.log("Unsupported action type: " + action.type);
+          console.log("Unsupported action type: ", action.type, " for identifier: ", action.identifier);
         }
 
         nativeAction && nativeActions.push(nativeAction);
