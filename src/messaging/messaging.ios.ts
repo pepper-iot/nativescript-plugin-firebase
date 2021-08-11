@@ -194,36 +194,40 @@ export function addBackgroundRemoteNotificationHandler(appDelegate) {
 }
 
 export function registerForInteractivePush(model?: PushNotificationModel): void {
-  let nativeActions: Array<UNNotificationAction> = [];
-
-  model.iosSettings.interactiveSettings.actions.forEach(((action: IosInteractiveNotificationAction) => {
-    let notificationActionOptions: UNNotificationActionOptions = action.options ? <UNNotificationActionOptions>action.options.valueOf() : UNNotificationActionOptionNone;
-    let actionType: IosInteractiveNotificationType = action.type || "button";
-    let nativeAction: UNNotificationAction;
-
-    if (actionType === "input") {
-      nativeAction = UNTextInputNotificationAction.actionWithIdentifierTitleOptionsTextInputButtonTitleTextInputPlaceholder(
-          action.identifier,
-          action.title,
-          notificationActionOptions,
-          action.submitLabel || "Submit",
-          action.placeholder);
-    } else if (actionType === "button") {
-      nativeAction = UNNotificationAction.actionWithIdentifierTitleOptions(
-          action.identifier,
-          action.title,
-          notificationActionOptions);
-    } else {
-      console.log("Unsupported action type: " + action.type);
-    }
-
-    nativeActions.push(nativeAction);
-  }));
-
-  let actions: NSArray<UNNotificationAction> = <NSArray<UNNotificationAction>>NSArray.arrayWithArray(<any>nativeActions);
   let nativeCategories: Array<UNNotificationCategory> = [];
 
   model.iosSettings.interactiveSettings.categories.forEach(category => {
+    let nativeActions: Array<UNNotificationAction> = [];
+
+    model.iosSettings.interactiveSettings.actions
+      .filter((action: IosInteractiveNotificationAction) => {
+        return (action.category === category.identifier) || !action.category;
+      })
+      .forEach((action: IosInteractiveNotificationAction) => {
+        let notificationActionOptions: UNNotificationActionOptions = action.options ? <UNNotificationActionOptions>action.options.valueOf() : UNNotificationActionOptionNone;
+        let actionType: IosInteractiveNotificationType = action.type || "button";
+        let nativeAction: UNNotificationAction;
+
+        if (actionType === "input") {
+          nativeAction = UNTextInputNotificationAction.actionWithIdentifierTitleOptionsTextInputButtonTitleTextInputPlaceholder(
+            action.identifier,
+            action.title,
+            notificationActionOptions,
+            action.submitLabel || "Submit",
+            action.placeholder);
+        } else if (actionType === "button") {
+          nativeAction = UNNotificationAction.actionWithIdentifierTitleOptions(
+            action.identifier,
+            action.title,
+            notificationActionOptions);
+        } else {
+          console.log("Unsupported action type: " + action.type);
+        }
+
+        nativeAction && nativeActions.push(nativeAction);
+      });
+
+    let actions: NSArray<UNNotificationAction> = <NSArray<UNNotificationAction>>NSArray.arrayWithArray(<any>nativeActions);
     let nativeCategory = UNNotificationCategory.categoryWithIdentifierActionsIntentIdentifiersOptions(category.identifier, actions, null, null);
 
     nativeCategories.push(nativeCategory);

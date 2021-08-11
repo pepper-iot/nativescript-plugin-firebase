@@ -1959,7 +1959,7 @@ firebase.firestore.batch = (): firestore.WriteBatch => {
   return new firebase.firestore.WriteBatch(FIRFirestore.firestore().batch());
 };
 
-firebase.firestore.Transaction = (nativeTransaction: FIRTransaction): any => { //firestore.Transaction
+firebase.firestore.Transaction = (nativeTransaction: FIRTransaction): any => { // firestore.Transaction
   class FirestoreTransaction implements firestore.Transaction {
     constructor() {
     }
