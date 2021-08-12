@@ -4,7 +4,7 @@ You'll be 😃 to learn this plugin has a *lite* mode that won't add any native 
 
 Go to you app's root folder and remove `firebase.nativescript.json`, then run `npm i`. At one point you will be prompted `"Are you using this plugin as a Push Notification client for an external (NOT Firebase Cloud Messaging) Push service? (y/n)"` and answer `y`.
 
-> ⚠️ Plugin version 10.1.0 removed support for the `external_messaging` property in `firebase.nativescript.json`. Please remove that file and re-run `npm i` if you had that hacky solution. 
+> ⚠️ Plugin version 10.1.0 removed support for the `external_messaging` property in `firebase.nativescript.json`. Please remove that file and re-run `npm i` if you had that hacky solution.
 
 ## Demo app
 I've tried applying best practices to a [dedicated push-only demo app](/demo-push).
@@ -40,8 +40,8 @@ Copy that file to `app/App_Resources/iOS/` (if it doesn't exist yet, otherwise m
 so it's not removed when you remove and re-add the iOS platform. The relevant content for background push in that file is:
 
 ```xml
-	<key>aps-environment</key>
-	<string>development</string>
+  <key>aps-environment</key>
+  <string>development</string>
 ```
 
 > Note that the filename can either be `<YourAppName>.entitlements` or `app.entitlements`, where `YourAppName` is the iOS foldername, see the path above.
@@ -65,7 +65,7 @@ And to allow processing when a background push is received, add this as well:
 
 The end result should look like [this](https://github.com/EddyVerbruggen/nativescript-plugin-firebase/blob/58d2792421be0d9c3d8fbdddd4abd6c782b30723/demo-push/app_resources/iOS/Info.plist#L46-L51).
 
-#### 
+####
 ## API
 
 ### `areNotificationsEnabled`
@@ -139,41 +139,41 @@ model.iosSettings.badge = false;
 model.iosSettings.alert = true;
 
 model.iosSettings.interactiveSettings = new messaging.IosInteractivePushSettings();
-model.iosSettings.interactiveSettings.actions = [
-  {
-    identifier: "OPEN_ACTION",
-    title: "Open the app (if closed)",
-    options: messaging.IosInteractiveNotificationActionOptions.foreground
-  },
-  {
-    identifier: "AUTH",
-    title: "Open the app, but only if device is not locked with a passcode",
-    options: messaging.IosInteractiveNotificationActionOptions.foreground | messaging.IosInteractiveNotificationActionOptions.authenticationRequired
-  },
-  {
-    identifier: "INPUT_ACTION",
-    title: "Tap to reply without opening the app",
-    type: "input",
-    submitLabel: "Fire!",
-    placeholder: "Load the gun..."
-  },
-  {
-    identifier: "INPUT_ACTION",
-    title: "Tap to reply and open the app",
-    options: messaging.IosInteractiveNotificationActionOptions.foreground,
-    type: "input",
-    submitLabel: "OK, send it",
-    placeholder: "Type here, baby!"
-  },
-  {
-    identifier: "DELETE_ACTION",
-    title: "Delete without opening the app",
-    options: messaging.IosInteractiveNotificationActionOptions.destructive
-  }
-];
 
 model.iosSettings.interactiveSettings.categories = [{
-  identifier: "GENERAL"
+  identifier: "GENERAL",
+  actions: [
+    {
+      identifier: "OPEN_ACTION",
+      title: "Open the app (if closed)",
+      options: messaging.IosInteractiveNotificationActionOptions.foreground
+    },
+    {
+      identifier: "AUTH",
+      title: "Open the app, but only if device is not locked with a passcode",
+      options: messaging.IosInteractiveNotificationActionOptions.foreground | messaging.IosInteractiveNotificationActionOptions.authenticationRequired
+    },
+    {
+      identifier: "INPUT_ACTION",
+      title: "Tap to reply without opening the app",
+      type: "input",
+      submitLabel: "Fire!",
+      placeholder: "Load the gun..."
+    },
+    {
+      identifier: "INPUT_ACTION",
+      title: "Tap to reply and open the app",
+      options: messaging.IosInteractiveNotificationActionOptions.foreground,
+      type: "input",
+      submitLabel: "OK, send it",
+      placeholder: "Type here, baby!"
+    },
+    {
+      identifier: "DELETE_ACTION",
+      title: "Delete without opening the app",
+      options: messaging.IosInteractiveNotificationActionOptions.destructive
+    }
+  ]
 }];
 
 model.onNotificationActionTakenCallback = (actionIdentifier: string, message: Message) => {

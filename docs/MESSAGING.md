@@ -37,8 +37,8 @@ Copy that file to `app/App_Resources/iOS/` (if it doesn't exist yet, otherwise m
 so it's not removed when you remove and re-add the iOS platform. The relevant content for background push in that file is:
 
 ```xml
-	<key>aps-environment</key>
-	<string>development</string>
+  <key>aps-environment</key>
+  <string>development</string>
 ```
 
 > Note that since plugin version 5.1.8 the name of the file can either be `<YourAppName>.entitlements` or `app.entitlements`. `YourAppName` is the iOS folder name, see the path above.
@@ -46,8 +46,8 @@ so it's not removed when you remove and re-add the iOS platform. The relevant co
 > Note that when shipping to the iOS App Store, the entitlements file needs to be updated to reflect production:
 
 ```xml
-	<key>aps-environment</key>
-	<string>production</string>
+  <key>aps-environment</key>
+  <string>production</string>
 ```
 
 #### Allow processing when a background push is received
@@ -245,41 +245,41 @@ model.iosSettings.badge = false;
 model.iosSettings.alert = true;
 
 model.iosSettings.interactiveSettings = new messaging.IosInteractivePushSettings();
-model.iosSettings.interactiveSettings.actions = [
-  {
-    identifier: "OPEN_ACTION",
-    title: "Open the app (if closed)",
-    options: messaging.IosInteractiveNotificationActionOptions.foreground
-  },
-  {
-    identifier: "AUTH",
-    title: "Open the app, but only if device is not locked with a passcode",
-    options: messaging.IosInteractiveNotificationActionOptions.foreground | messaging.IosInteractiveNotificationActionOptions.authenticationRequired
-  },
-  {
-    identifier: "INPUT_ACTION",
-    title: "Tap to reply without opening the app",
-    type: "input",
-    submitLabel: "Fire!",
-    placeholder: "Load the gun..."
-  },
-  {
-    identifier: "INPUT_ACTION",
-    title: "Tap to reply and open the app",
-    options: messaging.IosInteractiveNotificationActionOptions.foreground,
-    type: "input",
-    submitLabel: "OK, send it",
-    placeholder: "Type here, baby!"
-  },
-  {
-    identifier: "DELETE_ACTION",
-    title: "Delete without opening the app",
-    options: messaging.IosInteractiveNotificationActionOptions.destructive
-  }
-];
 
 model.iosSettings.interactiveSettings.categories = [{
-  identifier: "GENERAL"
+  identifier: "GENERAL",
+  actions: [
+    {
+      identifier: "OPEN_ACTION",
+      title: "Open the app (if closed)",
+      options: messaging.IosInteractiveNotificationActionOptions.foreground
+    },
+    {
+      identifier: "AUTH",
+      title: "Open the app, but only if device is not locked with a passcode",
+      options: messaging.IosInteractiveNotificationActionOptions.foreground | messaging.IosInteractiveNotificationActionOptions.authenticationRequired
+    },
+    {
+      identifier: "INPUT_ACTION",
+      title: "Tap to reply without opening the app",
+      type: "input",
+      submitLabel: "Fire!",
+      placeholder: "Load the gun..."
+    },
+    {
+      identifier: "INPUT_ACTION",
+      title: "Tap to reply and open the app",
+      options: messaging.IosInteractiveNotificationActionOptions.foreground,
+      type: "input",
+      submitLabel: "OK, send it",
+      placeholder: "Type here, baby!"
+    },
+    {
+      identifier: "DELETE_ACTION",
+      title: "Delete without opening the app",
+      options: messaging.IosInteractiveNotificationActionOptions.destructive
+    }
+  ]
 }];
 
 model.onNotificationActionTakenCallback = (actionIdentifier: string, message: firebase.Message) => {
