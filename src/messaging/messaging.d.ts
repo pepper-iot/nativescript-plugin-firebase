@@ -55,7 +55,6 @@ export interface IosInteractiveNotificationAction {
   submitLabel?: string;
   placeholder?: string;
   options?: IosInteractiveNotificationActionOptions;
-  category?: string;
 }
 
 export interface IosInteractiveNotificationCategory {
