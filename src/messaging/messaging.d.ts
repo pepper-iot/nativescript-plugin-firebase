@@ -60,7 +60,7 @@ export interface IosInteractiveNotificationAction {
 
 export interface IosInteractiveNotificationCategory {
   identifier: string;
-	actions: Array<IosInteractiveNotificationAction>;
+  actions: Array<IosInteractiveNotificationAction>;
   // actionsForDefaultContext?: string[];
   // actionsForMinimalContext?: string[];
 }
