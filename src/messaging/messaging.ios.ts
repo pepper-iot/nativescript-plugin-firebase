@@ -196,15 +196,14 @@ export function addBackgroundRemoteNotificationHandler(appDelegate) {
 export function registerForInteractivePush(model?: PushNotificationModel): void {
   let nativeCategories: Array<UNNotificationCategory> = [];
 
-  model.iosSettings.interactiveSettings.categories.forEach(category => {
+  model.iosSettings.interactiveSettings.categories.forEach((category: IosInteractiveNotificationCategory) => {
     let nativeActions: Array<UNNotificationAction> = [];
 
-    model.iosSettings.interactiveSettings.actions
-      .filter((action: IosInteractiveNotificationAction) => {
-        return (action.category === category.identifier) || !action.category;
-      })
+    category.actions
       .forEach((action: IosInteractiveNotificationAction) => {
-        let notificationActionOptions: UNNotificationActionOptions = action.options ? <UNNotificationActionOptions>action.options.valueOf() : UNNotificationActionOptionNone;
+        let notificationActionOptions: UNNotificationActionOptions = action.options
+          ? <UNNotificationActionOptions>action.options.valueOf()
+          : UNNotificationActionOptionNone;
         let actionType: IosInteractiveNotificationType = action.type || "button";
         let nativeAction: UNNotificationAction;
 
@@ -228,7 +227,8 @@ export function registerForInteractivePush(model?: PushNotificationModel): void 
       });
 
     let actions: NSArray<UNNotificationAction> = <NSArray<UNNotificationAction>>NSArray.arrayWithArray(<any>nativeActions);
-    let nativeCategory = UNNotificationCategory.categoryWithIdentifierActionsIntentIdentifiersOptions(category.identifier, actions, null, null);
+    let nativeCategory = UNNotificationCategory
+      .categoryWithIdentifierActionsIntentIdentifiersOptions(category.identifier, actions, null, null);
 
     nativeCategories.push(nativeCategory);
   });

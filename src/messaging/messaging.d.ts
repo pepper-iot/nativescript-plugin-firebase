@@ -33,7 +33,7 @@ export declare function onAppModuleLaunchEvent(intent: any): void;
 export declare function onAppModuleResumeEvent(intent: any): void;
 
 export declare class IosInteractivePushSettings {
-  actions: Array<IosInteractiveNotificationAction>;
+  // actions: Array<IosInteractiveNotificationAction>;
   categories: Array<IosInteractiveNotificationCategory>;
 }
 
@@ -60,6 +60,7 @@ export interface IosInteractiveNotificationAction {
 
 export interface IosInteractiveNotificationCategory {
   identifier: string;
+	actions: Array<IosInteractiveNotificationAction>;
   // actionsForDefaultContext?: string[];
   // actionsForMinimalContext?: string[];
 }

@@ -70,41 +70,41 @@ export class PushViewModel extends Observable {
     model.iosSettings.badge = false;
     model.iosSettings.alert = true;
     model.iosSettings.interactiveSettings = new messaging.IosInteractivePushSettings();
-    model.iosSettings.interactiveSettings.actions = [
-      {
-        identifier: "OPEN_ACTION",
-        title: "Open the app (if closed)",
-        options: messaging.IosInteractiveNotificationActionOptions.foreground
-      },
-      {
-        identifier: "AUTH",
-        title: "Open the app, but only if device is not locked with a passcode",
-        options: messaging.IosInteractiveNotificationActionOptions.foreground | messaging.IosInteractiveNotificationActionOptions.authenticationRequired
-      },
-      {
-        identifier: "INPUT_ACTION",
-        title: "Tap to reply without opening the app",
-        type: "input",
-        submitLabel: "Fire!",
-        placeholder: "Load the gun..."
-      },
-      {
-        identifier: "INPUT_ACTION",
-        title: "Tap to reply and open the app",
-        options: messaging.IosInteractiveNotificationActionOptions.foreground,
-        type: "input",
-        submitLabel: "OK, send it",
-        placeholder: "Type here, baby!"
-      },
-      {
-        identifier: "DELETE_ACTION",
-        title: "Delete without opening the app",
-        options: messaging.IosInteractiveNotificationActionOptions.destructive
-      }
-    ];
 
     model.iosSettings.interactiveSettings.categories = [{
-      identifier: "GENERAL"
+      identifier: "GENERAL",
+      actions: [
+        {
+          identifier: "OPEN_ACTION",
+          title: "Open the app (if closed)",
+          options: messaging.IosInteractiveNotificationActionOptions.foreground
+        },
+        {
+          identifier: "AUTH",
+          title: "Open the app, but only if device is not locked with a passcode",
+          options: messaging.IosInteractiveNotificationActionOptions.foreground | messaging.IosInteractiveNotificationActionOptions.authenticationRequired
+        },
+        {
+          identifier: "INPUT_ACTION",
+          title: "Tap to reply without opening the app",
+          type: "input",
+          submitLabel: "Fire!",
+          placeholder: "Load the gun..."
+        },
+        {
+          identifier: "INPUT_ACTION",
+          title: "Tap to reply and open the app",
+          options: messaging.IosInteractiveNotificationActionOptions.foreground,
+          type: "input",
+          submitLabel: "OK, send it",
+          placeholder: "Type here, baby!"
+        },
+        {
+          identifier: "DELETE_ACTION",
+          title: "Delete without opening the app",
+          options: messaging.IosInteractiveNotificationActionOptions.destructive
+        }
+      ]
     }];
 
     model.onNotificationActionTakenCallback = (actionIdentifier: string, message: Message, inputText?: string) => {
